@@ -1,0 +1,20 @@
+#!/bin/bash -e
+
+GIT_DIR=$(git rev-parse --git-dir)
+
+test -d "$GIT_DIR"/rebase-merge -o -d "$GIT_DIR"/rebase-apply && exit 0
+
+plugins=()
+plugins=$(git config --get-all hooks.enabled-plugins)
+
+if [[ ${#plugins[@]} -gt 0 ]]; then
+	echo -e "\033[1mrunnig commit-msg plugins:\033[0m"
+fi
+
+for enabled_plugin in ${plugins[@]}
+do
+	if [ -f "$GIT_DIR/hooks/$enabled_plugin/commit-msg" ]; then
+		echo -e "\033[34m$enabled_plugin\033[0m"
+		"$GIT_DIR/hooks/$enabled_plugin/commit-msg" "$1" "$2"
+	fi
+done

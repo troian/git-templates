@@ -1,0 +1,23 @@
+#!/bin/bash
+gitDir=$(git rev-parse --git-dir)
+
+plugins=()
+plugins=$(git config --get-all hooks.enabled-plugins)
+
+if [[ ${#plugins[@]} -gt 0 ]]; then
+	echo -e "\033[1mrunnig pre-push plugins:\033[0m"
+fi
+
+for enabled_plugin in ${plugins[@]}
+do
+	if [ -f "$gitDir/hooks/$enabled_plugin/pre-push" ]; then
+		echo -e "\033[34m$enabled_plugin\033[0m"
+		"$gitDir/hooks/$enabled_plugin/pre-push"
+		ret=$?
+		if [ $ret -ne 0 ]
+		then
+			exit $ret
+		fi
+	fi
+done
+
