@@ -47,7 +47,7 @@ function build_regex() {
 		regexp="${regexp}${types[$idx]}"
 	done
 
-	regexp="${regexp})(\([a-zA-Z0-9_\/ \-]+\))?: ([a-zA-Z0-9_:\$\.\/\^ \-]+))$"
+	regexp="${regexp})(\([a-zA-Z0-9_\/ \-]+\))?: ([a-zA-Z0-9_:\$\.\/\^ \-]+)( \(\#[1-9][0-9]{1,8}\))?)$"
 }
 
 # Print out a standard error message which explains
@@ -61,7 +61,7 @@ function print_error() {
 	echo -e "\033[1mValidation regexp:      \033[0m \033[34m""$regexp""\033[0m"
 	echo -e "\033[1mMax length (first line):\033[0m \033[34m$max_length\033[0m"
 	echo -e "\033[1mMin length (first line):\033[0m \033[34m$min_length\033[0m"
-	echo -e "\033[1mActual commit message:  \e[33m" "$commit_message""\033[0m"
+	echo -e "\033[1mActual commit message:  \e[33m" \"$commit_message\""\033[0m"
 	echo -e "\033[1mActual length:          \e[33m ${#commit_message}\033[0m"
 }
 
@@ -74,7 +74,8 @@ build_regex
 
 if [[ ${#msg} -lt $min_length ]] ||
    [[ ${#msg} -gt $max_length ]] ||
-   [[ ! $msg =~ $regexp ]]
+   [[ ! $msg =~ $regexp ]] ||
+   [[ ${msg: -1} == " " ]]
 	then
 	print_error "$msg" "$regexp"
 	exit 1
