@@ -3,9 +3,10 @@
 readonly PROGNAME=$(basename "$0")
 readonly PROGDIR="$(cd "$(dirname "$0")"; pwd)"
 readonly GIT_DIR="$(git rev-parse --git-dir)"
+
 export GIT_DIR
 
-. "$GIT_DIR/hooks/hook_switcher.sh"
+. "$PROGDIR/hooks/hook_switcher.sh"
 
 main() {
 	local hookName
