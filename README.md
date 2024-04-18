@@ -29,4 +29,4 @@ Now, everytime repo is created or cloned git will install following files into r
 ## How to add new hooks to this repo
 
 1. Create directory inside `hooks`. give it sensible name
-2. Create hook(s) files and make sure they are executable. Allowed hook types are: `pre-commit` `post-commit` `pre-push` `post-push`
+2. Create hook(s) files and make sure they are executable. Allowed hook types are: `commit-msg` `pre-commit` `post-commit` `pre-push` `post-push`
