@@ -1,4 +1,8 @@
-#!/bin/bash -eu
+#!/usr/bin/env bash
+
+set -e
+set -u
+
 GIT_DIR=$(git rev-parse --git-dir)
 export GIT_DIR
 

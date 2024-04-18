@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # @param hook_type       post-checkout|post-merge|post-commit|pre-commit
 # @param monitored_paths the paths to check
