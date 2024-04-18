@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 readonly PROGNAME=$(basename "$0")
 readonly PROGDIR="$(cd "$(dirname "$0")"; pwd)"
